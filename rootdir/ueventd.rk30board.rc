@@ -1,0 +1,29 @@
+# For Sensors
+/dev/mpu                  0660   system     system
+/dev/mpuirq               0660   system     system
+/dev/timerirq             0660   system     system
+/dev/mma8452_daemon       0666   system     system
+
+# For Graphics
+/dev/ion                  0666   system     system
+/dev/rga                  0666   system     system
+/dev/rk29-ipp             0666   system     system   
+/dev/video0               0660   system     camera
+/dev/video1               0660   system     camera
+/dev/vpu_service          0666   system     system
+
+# For Radio
+/dev/ttyUSB*              0660   radio      radio
+
+# For Mali
+/dev/mali           	  0666   system     system
+/dev/ump           	  0666   system     system
+
+# For DRM
+/dev/rknand_sys_storage   0660   system     system
+
+# For HDMI
+/sys/class/display/HDMI/enable   0664     root       system
+/sys/class/display/HDMI/mode     0664     root       system
+/sys/class/display/HDMI/scale    0664     root       system
+/sys/class/graphics/fb0/blank    0664     root       system
