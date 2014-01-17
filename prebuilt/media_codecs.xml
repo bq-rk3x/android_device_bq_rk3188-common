@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Copyright (C) 2014 The Android Open Source Project
+<!-- Copyright (C) 2012 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -77,10 +77,10 @@ Only the three quirks included above are recognized at this point:
 
 <MediaCodecs>
     <Decoders>
-	<MediaCodec name="OMX.rk.video_decoder.avc" type="video/avc" />
-	<MediaCodec name="OMX.rk.video_decoder.vpx" type="video/x-vnd.on2.vp8" />
-	<MediaCodec name="OMX.rk.video_decoder.h263" type="video/3gpp" />
-	<MediaCodec name="OMX.rk.video_decoder.m4v" type="video/mp4v-es" />
+        <MediaCodec name="OMX.rk.video_decoder.avc" type="video/avc" />
+        <MediaCodec name="OMX.rk.video_decoder.vpx" type="video/x-vnd.on2.vp8" />
+        <MediaCodec name="OMX.rk.video_decoder.h263" type="video/3gpp" />
+        <MediaCodec name="OMX.rk.video_decoder.m4v" type="video/mp4v-es" />
 
         <MediaCodec name="OMX.google.amrnb.decoder" type="audio/3gpp" />
         <MediaCodec name="OMX.google.amrwb.decoder" type="audio/amr-wb" />
@@ -88,13 +88,13 @@ Only the three quirks included above are recognized at this point:
         <MediaCodec name="OMX.google.g711.alaw.decoder" type="audio/g711-alaw" />
         <MediaCodec name="OMX.google.g711.mlaw.decoder" type="audio/g711-mlaw" />
         <MediaCodec name="OMX.google.vorbis.decoder" type="audio/vorbis" />
-
     </Decoders>
 
     <Encoders>
         <MediaCodec name="OMX.rk.video_encoder.vpx" type="video/x-vnd.on2.vp8" />
-	<MediaCodec name="OMX.google.h263.encoder" type="video/3gpp" />
-	<MediaCodec name="OMX.google.mpeg4.encoder" type="video/mp4v-es" />
+        <MediaCodec name="OMX.google.h263.encoder" type="video/3gpp" />
+        <MediaCodec name="OMX.google.mpeg4.encoder" type="video/mp4v-es" />
+
         <MediaCodec name="OMX.google.amrnb.encoder" type="audio/3gpp" />
         <MediaCodec name="OMX.google.amrwb.encoder" type="audio/amr-wb" />
         <MediaCodec name="OMX.google.aac.encoder" type="audio/mp4a-latm" />
