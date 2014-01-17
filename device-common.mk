@@ -41,7 +41,7 @@ PRODUCT_COPY_FILES += \
     device/bq/rockchip-common/prebuilt/nvram_RK903_26M.cal:system/etc/firmware/nvram_RK903_26M.cal \
     device/bq/rockchip-common/prebuilt/registry:system/lib/registry \
     device/bq/rockchip-common/prebuilt/rk29-keypad.kl:/system/usr/keylayout/rk29-keypad.kl \
-    device/bq/rockchip-common/prebuilt/serial_number.sh:system/bin/serial_number.sh \
+    device/bq/rockchip-common/prebuilt/rk3xxx:system/bin/rk3xxx \
     device/bq/rockchip-common/prebuilt/vold.fstab:system/etc/vold.fstab
 
 # Rootdir
