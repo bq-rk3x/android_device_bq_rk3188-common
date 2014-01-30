@@ -31,11 +31,13 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+    frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
 
 # Prebuilt
 PRODUCT_COPY_FILES += \
     device/bq/rockchip-common/prebuilt/audio_policy.conf:system/etc/audio_policy.conf \
+    device/bq/rockchip-common/prebuilt/config.txt:system/etc/firmware/config.txt \
     device/bq/rockchip-common/prebuilt/egl.cfg:system/lib/egl/egl.cfg \
     device/bq/rockchip-common/prebuilt/media_codecs.xml:system/etc/media_codecs.xml \
     device/bq/rockchip-common/prebuilt/nvram_RK903_26M.cal:system/etc/firmware/nvram_RK903_26M.cal \
@@ -55,7 +57,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/bq/rockchip-common/rootdir/init:root/init \
     device/bq/rockchip-common/rootdir/resize2fs:root/sbin/resize2fs \
-    device/bq/rockchip-common/rootdir/rk30xxnand.ko.3.0.8+:root/rk30xxnand.ko.3.0.8+ \
     device/bq/rockchip-common/rootdir/rk30xxnand.ko.3.0.36+:root/rk30xxnand.ko.3.0.36+ \
     device/bq/rockchip-common/rootdir/update-binary:obj/EXECUTABLES/updater_intermediates/updater
 
