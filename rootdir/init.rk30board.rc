@@ -138,6 +138,11 @@ service hostapd /system/bin/hostapd /data/misc/wifi/hostapd.conf
     disabled
     oneshot
 
+service wfd /system/bin/wfd
+    class main
+    disabled
+    oneshot
+
 service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
     class main
     disabled
