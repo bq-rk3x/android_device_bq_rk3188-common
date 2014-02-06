@@ -57,7 +57,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/bq/rockchip-common/rootdir/init:root/init \
     device/bq/rockchip-common/rootdir/resize2fs:root/sbin/resize2fs \
-    device/bq/rockchip-common/rootdir/rk30xxnand.ko.3.0.36+:root/rk30xxnand.ko.3.0.36+ \
     device/bq/rockchip-common/rootdir/update-binary:obj/EXECUTABLES/updater_intermediates/updater
 
 # Charger
