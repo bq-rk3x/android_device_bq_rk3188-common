@@ -26,6 +26,7 @@ DEVICE_PACKAGE_OVERLAYS += device/bq/rockchip-common/overlay
 # Hardware-specific features
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/tablet_core_hardware.xml:system/etc/permissions/tablet_core_hardware.xml \
+    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/android.hardware.faketouch.xml:system/etc/permissions/android.hardware.faketouch.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
@@ -43,8 +44,7 @@ PRODUCT_COPY_FILES += \
     device/bq/rockchip-common/prebuilt/nvram_RK903_26M.cal:system/etc/firmware/nvram_RK903_26M.cal \
     device/bq/rockchip-common/prebuilt/registry:system/lib/registry \
     device/bq/rockchip-common/prebuilt/rk29-keypad.kl:/system/usr/keylayout/rk29-keypad.kl \
-    device/bq/rockchip-common/prebuilt/rk3xxx:system/bin/rk3xxx \
-    device/bq/rockchip-common/prebuilt/vold.fstab:system/etc/vold.fstab
+    device/bq/rockchip-common/prebuilt/rk3xxx:system/bin/rk3xxx
 
 # Rootdir
 PRODUCT_COPY_FILES += \
