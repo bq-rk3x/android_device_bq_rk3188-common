@@ -78,14 +78,17 @@ on boot
     # Bluetooth
     chmod 0660 /dev/ttyS0
     chmod 0660 /dev/vflash
-    chmod 0660 /sys/class/rfkill/rfkill0/state
-    chmod 0660 /sys/class/rfkill/rfkill0/type
     chown bluetooth net_bt_stack /dev/ttyS0
     chown bluetooth net_bt_stack /dev/vflash
+
+    chmod 0660 /sys/class/rfkill/rfkill0/state
+    chmod 0660 /sys/class/rfkill/rfkill0/type
     chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
     chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
+
+    chown bluetooth net_bt_stack /data/misc/bluetooth
     chown bluetooth net_bt_stack ro.bt.bdaddr_path
-    setprop ro.bt.bdaddr_path "/data/blue_mac"
+    setprop ro.bt.bdaddr_path "/data/misc/bluetooth/bt_addr"
     
     # GPS
     write /sys/class/gpio/export 316             # GPS reset
@@ -94,10 +97,11 @@ on boot
     write /sys/class/gpio/gpio315/direction out
     write /sys/class/gpio/gpio316/value 1
     write /sys/class/gpio/gpio315/value 0
-    write /dev/ttyS3 123456
     chmod 0664 /sys/class/gpio/gpio315/value
-    chmod 0664 /dev/ttyS3
     chown gps system /sys/class/gpio/gpio315/value
+
+    write /dev/ttyS3 123456
+    chmod 0664 /dev/ttyS3
     chown gps system /dev/ttyS3
     mkdir /data/gps 770 gps system
     chown gps system /data/gps
@@ -187,6 +191,16 @@ service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
     oneshot
 
 service iprenew_eth0 system/bin/dhcpcd -n
+    class main
+    disabled
+    oneshot
+
+service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
+    class main
+    disabled
+    oneshot
+
+service iprenew_bt-pan /system/bin/dhcpcd -n
     class main
     disabled
     oneshot
