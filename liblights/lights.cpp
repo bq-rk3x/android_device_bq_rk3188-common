@@ -1,23 +1,37 @@
 /******************************************************************/
-/*	Copyright (C)  ROCK-CHIPS FUZHOU . All Rights Reserved.   */
-/******************************************************************
- * Description: Implement lights adjust HAL
+/*	Copyright (C)  ROCK-CHIPS FUZHOU . All Rights Reserved.  	  */
+/*******************************************************************
+ * File    :   lights.cpp
+ * Desc    :   Implement lights adjust HAL
+ * Author  :   CMY
+ * Date    :   2009-07-22
+ * Notes   :   ..............
  *
  * Revision 1.00  2009/07/22 CMY
- * Revision 2.00  2012/01/08 yxj
+ * Revision 2.00 2012/01/08 yxj
+ * support button charge lights
  *
- * ****************************************************************/
+ * ...................
+ * ********************************************************************/
 
 #define LOG_TAG "Lights"
 
+//#include <hardware/hardware.h>
+//#include <hardware/lights.h>
 #include "lights.h"
+
 #include <fcntl.h>
 #include <errno.h>
+
 #include <cutils/atomic.h>
 
+/*****************************************************************************/
 #define BACKLIGHT_PATH	"/sys/class/backlight/rk28_bl/brightness"
-int g_bl_fd = 0;   // backlight fd
-
+#define BUTTON_LED_PATH "sys/class/leds/rk29_key_led/brightness"
+#define BATTERY_LED_PATH "sys/class/leds/battery_led/brightness"
+int g_bl_fd = 0;   //backlight fd
+int g_btn_fd = 0; //button light fd
+int g_bat_fd = 0; //battery charger fd
 static pthread_once_t g_init = PTHREAD_ONCE_INIT;
 static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;
 
@@ -104,8 +118,10 @@ static int light_device_open(const struct hw_module_t* module, const char* name,
     struct light_device_t *dev;
     dev = (light_device_t*)malloc(sizeof(*dev));
 
+    /* initialize our state here */
     memset(dev, 0, sizeof(*dev));
 
+    /* initialize the procs */
     dev->common.tag = HARDWARE_DEVICE_TAG;
     dev->common.version = 0;
     dev->common.module = const_cast<hw_module_t*>(module);

@@ -1,4 +1,4 @@
-# Copyright (C) 2012 The Android Open Source Project
+# Copyright (C) 2008 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,14 +15,15 @@
 
 LOCAL_PATH := $(call my-dir)
 
-# HAL module implementation stored in
-# hw/<LIGHTS_HARDWARE_MODULE_ID>.<ro.board.platform>.so
+# HAL module implementation, not prelinked and stored in
+# hw/<LIGHTS_HARDWARE_MODULE_ID>.default.so
 
 include $(CLEAR_VARS)
-LOCAL_SRC_FILES := lights.cpp
-LOCAL_SHARED_LIBRARIES := liblog
-LOCAL_MODULE := lights.$(TARGET_BOARD_HARDWARE)
+LOCAL_PRELINK_MODULE := false
 LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
+LOCAL_SHARED_LIBRARIES := liblog
+LOCAL_SRC_FILES := lights.cpp
+LOCAL_MODULE := lights.$(TARGET_BOARD_HARDWARE)
 LOCAL_MODULE_TAGS := optional
 LOCAL_CFLAGS:=-DPLATFORM_SDK_VERSION=$(PLATFORM_SDK_VERSION)
 include $(BUILD_SHARED_LIBRARY)
