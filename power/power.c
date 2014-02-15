@@ -26,6 +26,8 @@
 #include <hardware/power.h>
 
 #define INTERACTIVE_PATH "/sys/devices/system/cpu/cpufreq/interactive/"
+#define BOOSTPULSE_PATH  INTERACTIVE_PATH "boostpulse"
+static int boostpulse_fd = -1;
 
 static void sysfs_write(char *path, char *s)
 {
@@ -50,17 +52,14 @@ static void sysfs_write(char *path, char *s)
 
 static void rk_power_init(struct power_module *module)
 {
-    /*
-     * cpufreq interactive governor: timer 20ms, min sample 20ms,
-     * hispeed 816MHz at load 85%.
-     */
+    ALOGD("version 3.0\n");
 
-    ALOGD("init\n");
-    sysfs_write(INTERACTIVE_PATH "timer_rate", "20000");
-    sysfs_write(INTERACTIVE_PATH "min_sample_time", "20000");
-    sysfs_write(INTERACTIVE_PATH "hispeed_freq", "816000");
-    sysfs_write(INTERACTIVE_PATH "go_hispeed_load", "85");
-    sysfs_write(INTERACTIVE_PATH "above_hispeed_delay", "100000");
+    boostpulse_fd = open(BOOSTPULSE_PATH, O_WRONLY);
+    if (boostpulse_fd < 0) {
+        char buf[80];
+        strerror_r(errno, buf, sizeof(buf));
+        ALOGE("Error opening %s: %s\n", BOOSTPULSE_PATH, buf);
+    }
 }
 
 static void rk_power_set_interactive(struct power_module *module, int on)
@@ -79,6 +78,9 @@ static void rk_power_hint(struct power_module *module, power_hint_t hint, void *
 {
     switch (hint) {
     case POWER_HINT_INTERACTION:
+        if (boostpulse_fd >= 0) {
+            write(boostpulse_fd, "1", 1);
+        }
         break;
 
     case POWER_HINT_VSYNC:
