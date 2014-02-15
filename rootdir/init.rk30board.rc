@@ -203,13 +203,6 @@ service iprenew_bt-pan /system/bin/dhcpcd -n
 service battery_charger /charger
     class charger
 
-# Accelerometer
-service akmd /system/bin/akmd
-    class main
-    user system
-    group system
-    oneshot
-
 # GPS daemon
 service gps-daemon /system/bin/glgps -c /system/etc/gps/gpsconfig.xml
     class main
