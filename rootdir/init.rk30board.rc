@@ -39,7 +39,6 @@ on fs
     insmod /system/lib/modules/ump.ko
     insmod /system/lib/modules/mali.ko mali_dvfs=50,100,133,160,200,266,400 mali_init_clock=50
     insmod /system/lib/modules/rk29-ipp.ko
-    insmod /system/lib/modules/rk30_mirroring.ko
 
 on post-fs-data
     mkdir /data/media 0770 media_rw media_rw
@@ -63,10 +62,6 @@ on boot
     # Mali 400
     chown system system /sys/mali400_utility/utility
     chmod 0664 /sys/mali400_utility/utility
-
-    # Mirroring device
-    chown media media /dev/mirroring
-    chmod 664 /dev/mirroring
 
     # HDMI
     chown root system /sys/class/display/HDMI/enable
