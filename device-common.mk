@@ -43,11 +43,9 @@ PRODUCT_COPY_FILES += \
     device/bq/rockchip-common/prebuilt/egl.cfg:system/lib/egl/egl.cfg \
     device/bq/rockchip-common/prebuilt/media_codecs.xml:system/etc/media_codecs.xml \
     device/bq/rockchip-common/prebuilt/nvram_RK903_26M.cal:system/etc/firmware/nvram_RK903_26M.cal \
-    device/bq/rockchip-common/prebuilt/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
     device/bq/rockchip-common/prebuilt/rk29-keypad.kl:/system/usr/keylayout/rk29-keypad.kl \
     device/bq/rockchip-common/prebuilt/rk3xxx:system/bin/rk3xxx \
-    device/bq/rockchip-common/prebuilt/updater:obj/EXECUTABLES/updater_intermediates/updater \
-    device/bq/rockchip-common/prebuilt/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
+    device/bq/rockchip-common/prebuilt/updater:obj/EXECUTABLES/updater_intermediates/updater
 
 # Rootdir
 PRODUCT_COPY_FILES += \
@@ -93,6 +91,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.facelock.recog_cutoff=5000 \
     persist.sys.strictmode.visual=false \
     persist.sys.usb.config=mtp
+
+# Wifi overlay
+$(call inherit-product, hardware/broadcom/wlan/bcmdhd/config/config-bcm.mk)
 
 # Dalvik heap
 $(call inherit-product, frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk)
