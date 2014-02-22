@@ -1,0 +1,4 @@
+#!/sbin/sh
+
+# Set device serial number
+setprop ro.serialno $(cat /data/misc/sn)

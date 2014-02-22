@@ -33,12 +33,11 @@ on init
     symlink /storage/usbdisk0 /usb_storage
 
 on fs
-    insmod /rk30xxnand.ko
+    insmod /rk30xxnand_ko.ko
     mount_all /fstab.rk30board
 
     insmod /system/lib/modules/ump.ko
     insmod /system/lib/modules/mali.ko mali_dvfs=50,100,133,160,200,266,400 mali_init_clock=50
-    insmod /system/lib/modules/rk29-ipp.ko
 
 on post-fs-data
     mkdir /data/media 0770 media_rw media_rw
@@ -53,8 +52,9 @@ on post-fs-data
 on boot
     chown system system /sys/devices/system/cpu/cpu1/online
     chmod 0660 /sys/devices/system/cpu/cpu1/online
-
-    insmod /system/lib/modules/vpu_service.ko
+	
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
 
     # Backlight
     chown system system /sys/class/backlight/rk28_bl/brightness
@@ -102,8 +102,8 @@ on boot
     chown gps system /data/gps
 
 
-# Rockchip init
-service rk3xxx /system/bin/sh /system/bin/rk3xxx
+# Set device serial number
+service rk-sn /system/bin/sh /system/bin/rk-sn
     class main
 
 # Virtual sdcard daemon running as media_rw (1023)
@@ -159,7 +159,7 @@ service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
     disabled
     oneshot
 
-service iprenew_wlan0 system/bin/dhcpcd -n
+service iprenew_wlan0 /system/bin/dhcpcd -n
     class main
     disabled
     oneshot
@@ -169,7 +169,7 @@ service dhcpcd_p2p /system/bin/dhcpcd -aABKL
     disabled
     oneshot
 
-service iprenew_p2p system/bin/dhcpcd -n
+service iprenew_p2p /system/bin/dhcpcd -n
     class main
     disabled
     oneshot
@@ -179,7 +179,7 @@ service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
     disabled
     oneshot
 
-service iprenew_eth0 system/bin/dhcpcd -n
+service iprenew_eth0 /system/bin/dhcpcd -n
     class main
     disabled
     oneshot

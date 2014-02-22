@@ -44,7 +44,7 @@ PRODUCT_COPY_FILES += \
     device/bq/rockchip-common/prebuilt/media_codecs.xml:system/etc/media_codecs.xml \
     device/bq/rockchip-common/prebuilt/nvram_RK903_26M.cal:system/etc/firmware/nvram_RK903_26M.cal \
     device/bq/rockchip-common/prebuilt/rk29-keypad.kl:/system/usr/keylayout/rk29-keypad.kl \
-    device/bq/rockchip-common/prebuilt/rk3xxx:system/bin/rk3xxx \
+    device/bq/rockchip-common/prebuilt/rk-sn:system/bin/rk-sn \
     device/bq/rockchip-common/prebuilt/updater:obj/EXECUTABLES/updater_intermediates/updater
 
 # Rootdir
