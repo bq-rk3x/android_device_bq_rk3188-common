@@ -70,6 +70,8 @@ PRODUCT_PACKAGES += \
 
 # Audio
 PRODUCT_PACKAGES += \
+    audio.primary.rk30board \
+    audio_policy.rk30board \
     audio.a2dp.default \
     audio.r_submix.default \
     audio.usb.default
