@@ -53,6 +53,7 @@ PRODUCT_COPY_FILES += \
     device/bq/rockchip-common/rootdir/resize2fs:root/sbin/resize2fs \
     device/bq/rockchip-common/rootdir/fstab.rk30board:root/fstab.rk30board \
     device/bq/rockchip-common/rootdir/init.rk30board.rc:root/init.rk30board.rc \
+    device/bq/rockchip-common/rootdir/init.recovery.rk30board.rc:root/init.recovery.rk30board.rc \
     device/bq/rockchip-common/rootdir/init.rk30board.usb.rc:root/init.rk30board.usb.rc \
     device/bq/rockchip-common/rootdir/ueventd.rk30board.rc:root/ueventd.rk30board.rc
 
