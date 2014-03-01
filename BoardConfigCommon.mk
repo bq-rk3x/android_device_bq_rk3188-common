@@ -35,7 +35,6 @@ TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 
 BOARD_EGL_CFG := device/bq/rockchip-common/prebuilt/egl.cfg
 USE_OPENGL_RENDERER := true
-
 ENABLE_WEBGL := true
 
 # Wi-Fi
@@ -67,7 +66,6 @@ BOARD_CUSTOM_BOOTIMG_MK := device/bq/rockchip-common/mkbootimg.mk
 # Recovery
 RECOVERY_FSTAB_VERSION := 2
 TARGET_RECOVERY_FSTAB := device/bq/rockchip-common/rootdir/fstab.rk30board
-TARGET_RECOVERY_PRE_COMMAND := "echo -n boot-recovery | busybox dd of=/dev/block/mtdblock0 count=1 conv=sync; sync"
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_HAS_NO_SELECT_BUTTON := true
