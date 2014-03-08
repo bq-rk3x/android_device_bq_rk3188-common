@@ -43,6 +43,9 @@ PRODUCT_COPY_FILES += \
     device/bq/rockchip-common/prebuilt/egl.cfg:system/lib/egl/egl.cfg \
     device/bq/rockchip-common/prebuilt/media_codecs.xml:system/etc/media_codecs.xml \
     device/bq/rockchip-common/prebuilt/nvram_RK903_26M.cal:system/etc/firmware/nvram_RK903_26M.cal \
+    device/bq/rockchip-common/prebuilt/packages-compat.xml:system/etc/packages-compat.xml \
+    device/bq/rockchip-common/prebuilt/packages-composer.xml:system/etc/packages-composer.xml \
+    device/bq/rockchip-common/prebuilt/performance_info.xml:system/etc/performance_info.xml \
     device/bq/rockchip-common/prebuilt/rk29-keypad.kl:/system/usr/keylayout/rk29-keypad.kl \
     device/bq/rockchip-common/prebuilt/rk-sn:system/bin/rk-sn \
     device/bq/rockchip-common/prebuilt/updater:obj/EXECUTABLES/updater_intermediates/updater

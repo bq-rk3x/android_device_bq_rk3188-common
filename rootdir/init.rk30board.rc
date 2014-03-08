@@ -98,6 +98,7 @@ on boot
     write /dev/ttyS3 123456
     chmod 0664 /dev/ttyS3
     chown gps system /dev/ttyS3
+
     mkdir /data/gps 770 gps system
     chown gps system /data/gps
 
@@ -196,6 +197,20 @@ service iprenew_bt-pan /system/bin/dhcpcd -n
 
 service battery_charger /charger
     class charger
+
+on property:sys.gmali.performance=ui
+    start pat_ui
+ 
+service pat_ui /system/bin/performance ui
+    disabled
+    oneshot
+ 
+on property:sys.gmali.performance=video
+    start pat_video
+ 
+service pat_video /system/bin/performance video
+    disabled
+    oneshot
 
 # GPS daemon
 service gps-daemon /system/bin/glgps -c /system/etc/gps/gpsconfig.xml
