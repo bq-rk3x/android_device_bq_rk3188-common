@@ -47,8 +47,7 @@ PRODUCT_COPY_FILES += \
     device/bq/rockchip-common/prebuilt/packages-composer.xml:system/etc/packages-composer.xml \
     device/bq/rockchip-common/prebuilt/performance_info.xml:system/etc/performance_info.xml \
     device/bq/rockchip-common/prebuilt/rk29-keypad.kl:/system/usr/keylayout/rk29-keypad.kl \
-    device/bq/rockchip-common/prebuilt/rk-sn:system/bin/rk-sn \
-    device/bq/rockchip-common/prebuilt/updater:obj/EXECUTABLES/updater_intermediates/updater
+    device/bq/rockchip-common/prebuilt/rk-sn:system/bin/rk-sn
 
 # Rootdir
 PRODUCT_COPY_FILES += \
