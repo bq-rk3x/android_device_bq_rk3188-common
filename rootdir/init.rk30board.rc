@@ -103,8 +103,8 @@ on boot
     chown gps system /data/gps
 
 
-# Set device serial number
-service rk-sn /system/bin/sh /system/bin/rk-sn
+# Rockchip specific commands
+service rk3x /system/bin/sh /system/bin/rk3x
     class main
 
 # Virtual sdcard daemon running as media_rw (1023)

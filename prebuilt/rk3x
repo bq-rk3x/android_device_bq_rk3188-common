@@ -1,0 +1,7 @@
+#!/sbin/sh
+
+# Set device serial number
+setprop ro.serialno $(cat /data/misc/sn)
+
+# Fix audit permissions
+chown audit /data/misc/audit
