@@ -22,6 +22,7 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 
 DEVICE_PACKAGE_OVERLAYS += device/bq/rockchip-common/overlay
 
+COMMON_PATH := device/bq/rockchip-common
 
 # Hardware-specific features
 PRODUCT_COPY_FILES += \
@@ -38,26 +39,26 @@ PRODUCT_COPY_FILES += \
 
 # Prebuilt
 PRODUCT_COPY_FILES += \
-    device/bq/rockchip-common/prebuilt/audio_policy.conf:system/etc/audio_policy.conf \
-    device/bq/rockchip-common/prebuilt/config.txt:system/etc/firmware/config.txt \
-    device/bq/rockchip-common/prebuilt/egl.cfg:system/lib/egl/egl.cfg \
-    device/bq/rockchip-common/prebuilt/media_codecs.xml:system/etc/media_codecs.xml \
-    device/bq/rockchip-common/prebuilt/nvram_RK903_26M.cal:system/etc/firmware/nvram_RK903_26M.cal \
-    device/bq/rockchip-common/prebuilt/packages-compat.xml:system/etc/packages-compat.xml \
-    device/bq/rockchip-common/prebuilt/packages-composer.xml:system/etc/packages-composer.xml \
-    device/bq/rockchip-common/prebuilt/performance_info.xml:system/etc/performance_info.xml \
-    device/bq/rockchip-common/prebuilt/rk29-keypad.kl:/system/usr/keylayout/rk29-keypad.kl \
-    device/bq/rockchip-common/prebuilt/rk3x:system/bin/rk3x
+    $(COMMON_PATH)/prebuilt/audio_policy.conf:system/etc/audio_policy.conf \
+    $(COMMON_PATH)/prebuilt/config.txt:system/etc/firmware/config.txt \
+    $(COMMON_PATH)/prebuilt/egl.cfg:system/lib/egl/egl.cfg \
+    $(COMMON_PATH)/prebuilt/media_codecs.xml:system/etc/media_codecs.xml \
+    $(COMMON_PATH)/prebuilt/nvram_RK903_26M.cal:system/etc/firmware/nvram_RK903_26M.cal \
+    $(COMMON_PATH)/prebuilt/packages-compat.xml:system/etc/packages-compat.xml \
+    $(COMMON_PATH)/prebuilt/packages-composer.xml:system/etc/packages-composer.xml \
+    $(COMMON_PATH)/prebuilt/performance_info.xml:system/etc/performance_info.xml \
+    $(COMMON_PATH)/prebuilt/rk29-keypad.kl:/system/usr/keylayout/rk29-keypad.kl \
+    $(COMMON_PATH)/prebuilt/rk3x:system/bin/rk3x
 
 # Rootdir
 PRODUCT_COPY_FILES += \
-    device/bq/rockchip-common/rootdir/init:root/init \
-    device/bq/rockchip-common/rootdir/resize2fs:root/sbin/resize2fs \
-    device/bq/rockchip-common/rootdir/fstab.rk30board:root/fstab.rk30board \
-    device/bq/rockchip-common/rootdir/init.rk30board.rc:root/init.rk30board.rc \
-    device/bq/rockchip-common/rootdir/init.recovery.rk30board.rc:root/init.recovery.rk30board.rc \
-    device/bq/rockchip-common/rootdir/init.rk30board.usb.rc:root/init.rk30board.usb.rc \
-    device/bq/rockchip-common/rootdir/ueventd.rk30board.rc:root/ueventd.rk30board.rc
+    $(COMMON_PATH)/rootdir/init:root/init \
+    $(COMMON_PATH)/rootdir/resize2fs:root/sbin/resize2fs \
+    $(COMMON_PATH)/rootdir/fstab.rk30board:root/fstab.rk30board \
+    $(COMMON_PATH)/rootdir/init.rk30board.rc:root/init.rk30board.rc \
+    $(COMMON_PATH)/rootdir/init.recovery.rk30board.rc:root/init.recovery.rk30board.rc \
+    $(COMMON_PATH)/rootdir/init.rk30board.usb.rc:root/init.rk30board.usb.rc \
+    $(COMMON_PATH)/rootdir/ueventd.rk30board.rc:root/ueventd.rk30board.rc
 
 # Charger
 PRODUCT_PACKAGES += \
