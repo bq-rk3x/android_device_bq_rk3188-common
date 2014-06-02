@@ -3,6 +3,8 @@
 /dev/mpuirq               0660   system     system
 /dev/timerirq             0660   system     system
 /dev/mma8452_daemon       0666   system     system
+/dev/akm8963_dev          0660   system     system
+/dev/compass              0660   system     system
 
 # For Graphics
 /dev/ion                  0666   system     system
