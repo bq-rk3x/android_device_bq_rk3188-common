@@ -91,7 +91,6 @@ PRODUCT_PACKAGES += \
 # Default props
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=131072 \
-    ro.audio.flinger_standbytime_ms=1000 \
     ro.sf.lcdc_composer=0 \
     debug.hwui.render_dirty_regions=false \
     ro.config.facelock=enable_facelock \
