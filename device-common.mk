@@ -84,6 +84,8 @@ PRODUCT_PACKAGES += \
     setup_fs \
     librs_jni \
     libnetcmdiface \
+    libMcClient \
+    mcDriverDaemon \
     com.android.future.usb.accessory
 
 # Default props
