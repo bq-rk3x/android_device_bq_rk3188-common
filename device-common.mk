@@ -52,13 +52,18 @@ PRODUCT_COPY_FILES += \
 
 # Rootdir
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/init:root/init \
-    $(COMMON_PATH)/rootdir/resize2fs:root/sbin/resize2fs \
     $(COMMON_PATH)/rootdir/fstab.rk30board:root/fstab.rk30board \
     $(COMMON_PATH)/rootdir/init.rk30board.rc:root/init.rk30board.rc \
     $(COMMON_PATH)/rootdir/init.recovery.rk30board.rc:root/init.recovery.rk30board.rc \
     $(COMMON_PATH)/rootdir/init.rk30board.usb.rc:root/init.rk30board.usb.rc \
     $(COMMON_PATH)/rootdir/ueventd.rk30board.rc:root/ueventd.rk30board.rc
+
+# Rootdir blobs
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/drmboot.ko:root/drmboot.ko \
+    $(COMMON_PATH)/rootdir/init:root/init \
+    $(COMMON_PATH)/rootdir/resize2fs:root/sbin/resize2fs \
+    $(COMMON_PATH)/rootdir/rk30xxnand_ko.ko.3.0.36+:root/rk30xxnand_ko.ko.3.0.36+
 
 # Charger
 PRODUCT_PACKAGES += \
