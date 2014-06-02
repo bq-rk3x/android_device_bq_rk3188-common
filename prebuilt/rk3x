@@ -7,4 +7,4 @@ setprop ro.serialno $(cat /data/misc/sn)
 chown audit /data/misc/audit
 
 # Fix I/O scheduler permissions
-chown system /sys/block/mmcblk0/queue/scheduler
+chown system /sys/block/mtdblock*/queue/scheduler
