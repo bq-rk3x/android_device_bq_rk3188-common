@@ -1,0 +1,84 @@
+From 4d8dae29907a66a6c9845490d76590e501ac75af Mon Sep 17 00:00:00 2001
+From: "J. Carlos Romero" <juancarlos.romero@gmail.com>
+Date: Thu, 17 Apr 2014 20:36:34 +0200
+Subject: [PATCH] Fix flashing Rockchip MTD partitions
+
+---
+ mtdutils/mtdutils.c | 33 +++++++++++++++++++++++++++++----
+ 1 file changed, 29 insertions(+), 4 deletions(-)
+
+diff --git a/mtdutils/mtdutils.c b/mtdutils/mtdutils.c
+index 8b8725f..b6f4a1c 100644
+--- a/mtdutils/mtdutils.c
++++ b/mtdutils/mtdutils.c
+@@ -60,6 +60,31 @@ static MtdState g_mtd_state = {
+ 
+ #define MTD_PROC_FILENAME   "/proc/mtd"
+ 
++int rk30_zero_out(int fd, off_t pos, ssize_t size)
++{
++    if (lseek(fd, pos, SEEK_SET) != pos) {
++        fprintf(stderr, "mtd: erase failure at 0x%08lx (%s)\n",
++                pos, strerror(errno));
++        return -1;
++    }
++
++    unsigned char *zb = (unsigned char *)calloc(1, size);
++    if (zb == NULL) {
++        fprintf(stderr, "mtd: erase failure, could not allocate memory\n");
++        return -1;
++    }
++
++    if (write(fd, zb, size) != size) {
++        fprintf(stderr, "mtd: erase failure at 0x%08lx (%s)\n",
++                pos, strerror(errno));
++        free(zb);
++        return -1;
++    }
++
++    free(zb);
++    return 0;
++}
++
+ int
+ mtd_scan_partitions()
+ {
+@@ -428,7 +453,7 @@ static int write_block(MtdWriteContext *ctx, const char *data)
+         erase_info.length = size;
+         int retry;
+         for (retry = 0; retry < 2; ++retry) {
+-            if (ioctl(fd, MEMERASE, &erase_info) < 0) {
++            if (rk30_zero_out(fd, pos, size) < 0) {
+                 fprintf(stderr, "mtd: erase failure at 0x%08lx (%s)\n",
+                         pos, strerror(errno));
+                 continue;
+@@ -462,7 +487,7 @@ static int write_block(MtdWriteContext *ctx, const char *data)
+         // Try to erase it once more as we give up on this block
+         add_bad_block_offset(ctx, pos);
+         fprintf(stderr, "mtd: skipping write block at 0x%08lx\n", pos);
+-        ioctl(fd, MEMERASE, &erase_info);
++        rk30_zero_out(fd, pos, size);
+         pos += partition->erase_size;
+     }
+ 
+@@ -534,7 +559,7 @@ off_t mtd_erase_blocks(MtdWriteContext *ctx, int blocks)
+         struct erase_info_user erase_info;
+         erase_info.start = pos;
+         erase_info.length = ctx->partition->erase_size;
+-        if (ioctl(ctx->fd, MEMERASE, &erase_info) < 0) {
++        if (rk30_zero_out(ctx->fd, pos, ctx->partition->erase_size) < 0) {
+             fprintf(stderr, "mtd: erase failure at 0x%08lx\n", pos);
+         }
+         pos += ctx->partition->erase_size;
+@@ -604,7 +629,7 @@ int cmd_mtd_restore_raw_partition(const char *partition_name, const char *filena
+         printf("error opening %s", filename);
+         return -1;
+     }
+-    
++
+     MtdWriteContext* ctx = mtd_write_partition(mtd);
+     if (ctx == NULL) {
+         printf("error writing %s", partition_name);
+-- 
+1.9.1
+
