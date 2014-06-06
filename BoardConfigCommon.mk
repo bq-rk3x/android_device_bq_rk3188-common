@@ -34,7 +34,6 @@ TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 
 BOARD_EGL_CFG := device/bq/rockchip-common/prebuilt/egl.cfg
-BOARD_EGL_NEEDS_LEGACY_FB := true
 USE_OPENGL_RENDERER := true
 ENABLE_WEBGL := true
 TARGET_FORCE_CPU_UPLOAD := true
