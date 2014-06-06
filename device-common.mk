@@ -26,6 +26,7 @@ COMMON_PATH := device/bq/rockchip-common
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/tablet_core_hardware.xml:system/etc/permissions/tablet_core_hardware.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
+    frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
     frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
     frameworks/native/data/etc/android.hardware.faketouch.xml:system/etc/permissions/android.hardware.faketouch.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
@@ -41,6 +42,7 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/prebuilt/config.txt:system/etc/firmware/config.txt \
     $(COMMON_PATH)/prebuilt/egl.cfg:system/lib/egl/egl.cfg \
     $(COMMON_PATH)/prebuilt/media_codecs.xml:system/etc/media_codecs.xml \
+    $(COMMON_PATH)/prebuilt/media_profiles.xml:system/etc/media_profiles.xml \
     $(COMMON_PATH)/prebuilt/nvram_RK903_26M.cal:system/etc/firmware/nvram_RK903_26M.cal \
     $(COMMON_PATH)/prebuilt/packages-compat.xml:system/etc/packages-compat.xml \
     $(COMMON_PATH)/prebuilt/packages-composer.xml:system/etc/packages-composer.xml \
