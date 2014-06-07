@@ -186,7 +186,7 @@ service iprenew_bt-pan /system/bin/dhcpcd -n
     disabled
     oneshot
 
-service battery_charger /charger
+service charger /charger
     class charger
 
 on property:sys.gmali.performance=ui
