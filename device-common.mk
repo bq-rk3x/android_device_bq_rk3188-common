@@ -95,6 +95,7 @@ PRODUCT_PACKAGES += \
 
 # Default props
 PRODUCT_PROPERTY_OVERRIDES += \
+    cm.updater.uri=http://bokerones.noip.me/CyanogenModOTA/api \
     ro.opengles.version=131072 \
     ro.sf.lcdc_composer=0 \
     debug.hwui.render_dirty_regions=false \
