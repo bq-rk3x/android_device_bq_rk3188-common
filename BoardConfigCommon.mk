@@ -59,6 +59,7 @@ BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_BLUEDROID_VENDOR_CONF := device/bq/rockchip-common/bluetooth/vnd_rockchip.txt
 
 # Kernel
+TARGET_KERNEL_SOURCE := kernel/bq/rk3188
 BOARD_USES_UNCOMPRESSED_BOOT := true
 BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_KERNEL_BASE := 0x60408000
