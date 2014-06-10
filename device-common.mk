@@ -111,6 +111,3 @@ $(call inherit-product, hardware/broadcom/wlan/bcmdhd/config/config-bcm.mk)
 
 # Dalvik heap
 $(call inherit-product, frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk)
-
-# Inherit from the non-open-source side
-$(call inherit-product, vendor/bq/rockchip-common/rockchip-vendor.mk)
