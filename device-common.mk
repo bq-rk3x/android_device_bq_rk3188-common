@@ -20,8 +20,6 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 
 DEVICE_PACKAGE_OVERLAYS += device/bq/rk3188-common/overlay
 
-COMMON_PATH := device/bq/rk3188-common
-
 # Hardware-specific features
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/tablet_core_hardware.xml:system/etc/permissions/tablet_core_hardware.xml \
@@ -38,32 +36,32 @@ PRODUCT_COPY_FILES += \
 
 # Prebuilt
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/prebuilt/audio_policy.conf:system/etc/audio_policy.conf \
-    $(COMMON_PATH)/prebuilt/config.txt:system/etc/firmware/config.txt \
-    $(COMMON_PATH)/prebuilt/egl.cfg:system/lib/egl/egl.cfg \
-    $(COMMON_PATH)/prebuilt/media_codecs.xml:system/etc/media_codecs.xml \
-    $(COMMON_PATH)/prebuilt/media_profiles.xml:system/etc/media_profiles.xml \
-    $(COMMON_PATH)/prebuilt/nvram_RK903_26M.cal:system/etc/firmware/nvram_RK903_26M.cal \
-    $(COMMON_PATH)/prebuilt/packages-compat.xml:system/etc/packages-compat.xml \
-    $(COMMON_PATH)/prebuilt/packages-composer.xml:system/etc/packages-composer.xml \
-    $(COMMON_PATH)/prebuilt/performance_info.xml:system/etc/performance_info.xml \
-    $(COMMON_PATH)/prebuilt/rk29-keypad.kl:/system/usr/keylayout/rk29-keypad.kl \
-    $(COMMON_PATH)/prebuilt/rk3x:system/bin/rk3x
+    device/bq/rk3188-common/prebuilt/audio_policy.conf:system/etc/audio_policy.conf \
+    device/bq/rk3188-common/prebuilt/config.txt:system/etc/firmware/config.txt \
+    device/bq/rk3188-common/prebuilt/egl.cfg:system/lib/egl/egl.cfg \
+    device/bq/rk3188-common/prebuilt/media_codecs.xml:system/etc/media_codecs.xml \
+    device/bq/rk3188-common/prebuilt/media_profiles.xml:system/etc/media_profiles.xml \
+    device/bq/rk3188-common/prebuilt/nvram_RK903_26M.cal:system/etc/firmware/nvram_RK903_26M.cal \
+    device/bq/rk3188-common/prebuilt/packages-compat.xml:system/etc/packages-compat.xml \
+    device/bq/rk3188-common/prebuilt/packages-composer.xml:system/etc/packages-composer.xml \
+    device/bq/rk3188-common/prebuilt/performance_info.xml:system/etc/performance_info.xml \
+    device/bq/rk3188-common/prebuilt/rk29-keypad.kl:/system/usr/keylayout/rk29-keypad.kl \
+    device/bq/rk3188-common/prebuilt/rk3x:system/bin/rk3x
 
 # Rootdir
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/fstab.rk30board:root/fstab.rk30board \
-    $(COMMON_PATH)/rootdir/init.rk30board.rc:root/init.rk30board.rc \
-    $(COMMON_PATH)/rootdir/init.recovery.rk30board.rc:root/init.recovery.rk30board.rc \
-    $(COMMON_PATH)/rootdir/init.rk30board.usb.rc:root/init.rk30board.usb.rc \
-    $(COMMON_PATH)/rootdir/ueventd.rk30board.rc:root/ueventd.rk30board.rc
+    device/bq/rk3188-common/rootdir/fstab.rk30board:root/fstab.rk30board \
+    device/bq/rk3188-common/rootdir/init.rk30board.rc:root/init.rk30board.rc \
+    device/bq/rk3188-common/rootdir/init.recovery.rk30board.rc:root/init.recovery.rk30board.rc \
+    device/bq/rk3188-common/rootdir/init.rk30board.usb.rc:root/init.rk30board.usb.rc \
+    device/bq/rk3188-common/rootdir/ueventd.rk30board.rc:root/ueventd.rk30board.rc
 
 # Rootdir blobs
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/drmboot.ko:root/drmboot.ko \
-    $(COMMON_PATH)/rootdir/init:root/init \
-    $(COMMON_PATH)/rootdir/resize2fs:root/sbin/resize2fs \
-    $(COMMON_PATH)/rootdir/rk30xxnand_ko.ko.3.0.36+:root/rk30xxnand_ko.ko.3.0.36+
+    device/bq/rk3188-common/rootdir/drmboot.ko:root/drmboot.ko \
+    device/bq/rk3188-common/rootdir/init:root/init \
+    device/bq/rk3188-common/rootdir/resize2fs:root/sbin/resize2fs \
+    device/bq/rk3188-common/rootdir/rk30xxnand_ko.ko.3.0.36+:root/rk30xxnand_ko.ko.3.0.36+
 
 # Charger
 PRODUCT_PACKAGES += \
@@ -96,7 +94,6 @@ PRODUCT_PACKAGES += \
 
 # Default props
 PRODUCT_PROPERTY_OVERRIDES += \
-    cm.updater.uri=http://bokerones.noip.me/CyanogenModOTA/api \
     ro.opengles.version=131072 \
     ro.sf.lcdc_composer=0 \
     debug.hwui.render_dirty_regions=false \
