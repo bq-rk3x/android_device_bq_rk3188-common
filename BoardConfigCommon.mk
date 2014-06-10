@@ -15,7 +15,7 @@
 #
 
 # Inherit from the proprietary version
--include vendor/bq/rockchip-common/BoardConfigVendor.mk
+-include vendor/bq/rk3188-common/BoardConfigVendor.mk
 
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
@@ -33,7 +33,7 @@ ARCH_ARM_HAVE_TLS_REGISTER := true
 TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 
-BOARD_EGL_CFG := device/bq/rockchip-common/prebuilt/egl.cfg
+BOARD_EGL_CFG := device/bq/rk3188-common/prebuilt/egl.cfg
 USE_OPENGL_RENDERER := true
 ENABLE_WEBGL := true
 TARGET_FORCE_CPU_UPLOAD := true
@@ -56,7 +56,7 @@ WIFI_DRIVER_MODULE_NAME     := "wlan"
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
-BOARD_BLUEDROID_VENDOR_CONF := device/bq/rockchip-common/bluetooth/vnd_rockchip.txt
+BOARD_BLUEDROID_VENDOR_CONF := device/bq/rk3188-common/bluetooth/vnd_rockchip.txt
 
 # Partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
@@ -72,13 +72,13 @@ BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_KERNEL_BASE := 0x60408000
 BOARD_KERNEL_PAGESIZE := 16384
 
-BOARD_CUSTOM_BOOTIMG_MK := device/bq/rockchip-common/mkbootimg.mk
+BOARD_CUSTOM_BOOTIMG_MK := device/bq/rk3188-common/mkbootimg.mk
 
 # Recovery
 RECOVERY_FSTAB_VERSION := 2
-TARGET_RECOVERY_FSTAB := device/bq/rockchip-common/rootdir/fstab.rk30board
+TARGET_RECOVERY_FSTAB := device/bq/rk3188-common/rootdir/fstab.rk30board
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_UMS_LUNFILE := /sys/class/android_usb/android0/f_mass_storage/lun/file
-BOARD_CUSTOM_GRAPHICS := ../../../device/bq/rockchip-common/recovery/graphics.c graphics_overlay.c
+BOARD_CUSTOM_GRAPHICS := ../../../device/bq/rk3188-common/recovery/graphics.c graphics_overlay.c

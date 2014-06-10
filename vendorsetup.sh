@@ -15,4 +15,4 @@
 #
 
 # Run device patches on the tree
-sh device/bq/rockchip-common/patches/apply.sh
+sh device/bq/rk3188-common/patches/apply.sh

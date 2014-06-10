@@ -18,9 +18,9 @@ PRODUCT_CHARACTERISTICS := tablet
 
 PRODUCT_TAGS += dalvik.gc.type-precise
 
-DEVICE_PACKAGE_OVERLAYS += device/bq/rockchip-common/overlay
+DEVICE_PACKAGE_OVERLAYS += device/bq/rk3188-common/overlay
 
-COMMON_PATH := device/bq/rockchip-common
+COMMON_PATH := device/bq/rk3188-common
 
 # Hardware-specific features
 PRODUCT_COPY_FILES += \
