@@ -73,3 +73,4 @@ TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_UMS_LUNFILE := /sys/class/android_usb/android0/f_mass_storage/lun/file
+BOARD_CUSTOM_GRAPHICS := ../../../device/bq/rockchip-common/recovery/graphics.c graphics_overlay.c
