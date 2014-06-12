@@ -25,9 +25,8 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_CFLAGS := -DLOG_TAG=\"SensorsHal\" -DPLATFORM_SDK_VERSION=$(PLATFORM_SDK_VERSION)
 
 ifeq ($(TARGET_BOOTLOADER_BOARD_NAME),bq_Maxwell2_QuadCore)
-LOCAL_SRC_FILES := sensors-akm.c AkmSensor.cpp
-else
-LOCAL_SRC_FILES := sensors.c
+LOCAL_CFLAGS += -DAKM_SUPPORT
+LOCAL_SRC_FILES := AkmSensor.cpp
 endif
 
 LOCAL_SRC_FILES := nusensors.cpp 	\

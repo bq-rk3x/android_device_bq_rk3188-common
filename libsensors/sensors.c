@@ -37,6 +37,32 @@ static const struct sensor_t sSensorList[] = {
           .minDelay   = 0,
           .reserved   = {}
         },
+
+#if defined(AKM_SUPPORT)
+	{ .name       = "Compass Magnetic field sensor",
+          .vendor     = "The Android Open Source Project",
+          .version    = 1,
+          .handle     = SENSORS_HANDLE_BASE+ID_M,
+          .type       = SENSOR_TYPE_MAGNETIC_FIELD,
+          .maxRange   = 2000.0f,
+          .resolution = 1.0f/16.0f,
+          .power      = 6.8f,
+          .minDelay   = 0,
+          .reserved   = {}
+        },
+
+	{ .name       = "Compass Orientation sensor",
+          .vendor     = "The Android Open Source Project",
+          .version    = 1,
+          .handle     = SENSORS_HANDLE_BASE+ID_O,
+          .type       = SENSOR_TYPE_ORIENTATION,
+          .maxRange   = 360.0f,
+          .resolution = 1.0f,
+          .power      = 7.0f,
+          .minDelay   = 0,
+          .reserved   = {}
+        },
+#endif
 };
 
 static int open_sensors(const struct hw_module_t* module, const char* name,
@@ -59,7 +85,11 @@ static struct hw_module_methods_t sensors_module_methods = {
         .version_major = 1,
         .version_minor = 0,
         .id = SENSORS_HARDWARE_MODULE_ID,
+#if defined(AKM_SUPPORT)
+        .name = "MMA8452Q & AK8963 Sensors Module",
+#else
         .name = "MMA8452Q Sensors Module",
+#endif
         .author = "The RKdroid Project",
         .methods = &sensors_module_methods,
     },
