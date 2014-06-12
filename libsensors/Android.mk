@@ -32,7 +32,8 @@ endif
 LOCAL_SRC_FILES := nusensors.cpp 	\
                    InputEventReader.cpp	\
                    SensorBase.cpp	\
-                   MmaSensor.cpp
+                   MmaSensor.cpp	\
+                   sensors.c
 				
 LOCAL_SHARED_LIBRARIES := liblog libcutils libutils
 LOCAL_PRELINK_MODULE := false
