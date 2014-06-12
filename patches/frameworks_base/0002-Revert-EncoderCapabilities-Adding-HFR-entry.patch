@@ -1,8 +1,7 @@
 From 4d7b813e8ec7a9ce7a06a1fb25fdcadccce1d66a Mon Sep 17 00:00:00 2001
 From: Kra1o5 <kra1o5x@gmail.com>
 Date: Fri, 28 Mar 2014 14:37:10 +0100
-Subject: [PATCH] Revert "EncoderCapabilities: Adding HFR entry in
- EncoderCapabilities and JNI"
+Subject: [PATCH] Revert "EncoderCapabilities: Adding HFR entry in EncoderCapabilities and JNI"
 
 This reverts commit e72cbd0e7c1fbaa7e77a897232ede23b1da87839.
 ---

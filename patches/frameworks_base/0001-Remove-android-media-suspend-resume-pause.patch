@@ -1,7 +1,7 @@
 From ae3287cdbba42118f949a1d218c30d0b60355a6a Mon Sep 17 00:00:00 2001
 From: fefifofum <fefifofum@email.com>
 Date: Fri, 28 Feb 2014 21:53:15 +0100
-Subject: [PATCH] Fix Rockchip build
+Subject: [PATCH] Remove android_media suspend/resume/pause
 
 ---
  media/jni/android_media_MediaPlayer.cpp   | 34 -------------------------------
