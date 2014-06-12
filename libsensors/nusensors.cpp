@@ -30,7 +30,10 @@
 
 #include "nusensors.h"
 #include "MmaSensor.h"
+
+#if defined(AKM_SUPPORT)
 #include "AkmSensor.h"
+#endif
 
 #if defined(CALIBRATION_SUPPORT)
 typedef		unsigned short	    uint16;
@@ -147,7 +150,9 @@ struct sensors_poll_context_t {
 private:
     enum {
         mma             = 0,
+#if defined(AKM_SUPPORT)
         akm             = 1,
+#endif
         numSensorDrivers,
         numFds,
     };
@@ -162,9 +167,11 @@ private:
         switch (handle) {
             case ID_A:
                 return mma;
+#if defined(AKM_SUPPORT)
             case ID_M:
             case ID_O:
                 return akm;
+#endif
         }
         return -EINVAL;
     }
@@ -181,10 +188,12 @@ sensors_poll_context_t::sensors_poll_context_t()
     mPollFds[mma].events = POLLIN;
     mPollFds[mma].revents = 0;
 
+#if defined(AKM_SUPPORT)
     mSensors[akm] = new AkmSensor();
     mPollFds[akm].fd = mSensors[akm]->getFd();
     mPollFds[akm].events = POLLIN;
     mPollFds[akm].revents = 0;
+#endif
 
     int wakeFds[2];
     int result = pipe(wakeFds);
