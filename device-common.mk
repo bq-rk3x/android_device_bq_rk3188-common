@@ -68,7 +68,6 @@ PRODUCT_PACKAGES += \
 
 # HAL
 PRODUCT_PACKAGES += \
-    keystore.rk3188 \
     lights.rk30board \
     power.rk3188 \
     sensors.rk30board
@@ -86,8 +85,6 @@ PRODUCT_PACKAGES += \
     setup_fs \
     librs_jni \
     libnetcmdiface \
-    libMcClient \
-    mcDriverDaemon \
     com.android.future.usb.accessory
 
 # Default props
