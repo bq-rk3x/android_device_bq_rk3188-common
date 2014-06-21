@@ -39,10 +39,10 @@ PRODUCT_COPY_FILES += \
 # Prebuilt
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/prebuilt/audio_policy.conf:system/etc/audio_policy.conf \
-    $(COMMON_PATH)/prebuilt/config.txt:system/etc/firmware/config.txt \
+    $(COMMON_PATH)/prebuilt/config.txt:system/vendor/firmware/config.txt \
     $(COMMON_PATH)/prebuilt/media_codecs.xml:system/etc/media_codecs.xml \
     $(COMMON_PATH)/prebuilt/media_profiles.xml:system/etc/media_profiles.xml \
-    $(COMMON_PATH)/prebuilt/nvram_RK903_26M.cal:system/etc/firmware/nvram_RK903_26M.cal \
+    $(COMMON_PATH)/prebuilt/nvram_RK903_26M.cal:system/vendor/firmware/nvram_RK903_26M.cal \
     $(COMMON_PATH)/prebuilt/rk29-keypad.kl:/system/usr/keylayout/rk29-keypad.kl \
     $(COMMON_PATH)/prebuilt/rk3x:system/bin/rk3x
 
@@ -102,8 +102,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     wifi.supplicant_scan_interval=15 \
     dalvik.vm.debug.alloc=0
 
-# Wifi overlay
-$(call inherit-product, hardware/broadcom/wlan/bcmdhd/config/config-bcm.mk)
+# Broadcom firmware
+WIFI_BAND := 802_11_BG
+$(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4330/device-bcm.mk)
 
 # Dalvik heap
 $(call inherit-product, frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk)
