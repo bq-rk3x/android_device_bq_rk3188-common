@@ -40,7 +40,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/prebuilt/audio_policy.conf:system/etc/audio_policy.conf \
     $(COMMON_PATH)/prebuilt/config.txt:system/etc/firmware/config.txt \
-    $(COMMON_PATH)/prebuilt/egl.cfg:system/lib/egl/egl.cfg \
     $(COMMON_PATH)/prebuilt/media_codecs.xml:system/etc/media_codecs.xml \
     $(COMMON_PATH)/prebuilt/media_profiles.xml:system/etc/media_profiles.xml \
     $(COMMON_PATH)/prebuilt/nvram_RK903_26M.cal:system/etc/firmware/nvram_RK903_26M.cal \
