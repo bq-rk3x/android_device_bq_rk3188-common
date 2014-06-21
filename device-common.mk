@@ -68,9 +68,9 @@ PRODUCT_PACKAGES += \
 
 # HAL
 PRODUCT_PACKAGES += \
-    keystore.rk30xx \
+    keystore.rk3188 \
     lights.rk30board \
-    power.rk30xx \
+    power.rk3188 \
     sensors.rk30board
 
 # Audio
