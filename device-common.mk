@@ -102,8 +102,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.facelock=enable_facelock \
     persist.facelock.detect_cutoff=5000 \
     persist.facelock.recog_cutoff=5000 \
-    persist.sys.usb.config=mtp \
     wifi.interface=wlan0 \
+    wifi.supplicant_scan_interval=15 \
     dalvik.vm.debug.alloc=0
 
 # Wifi overlay
