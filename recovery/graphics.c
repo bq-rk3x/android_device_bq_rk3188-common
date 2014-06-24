@@ -293,6 +293,7 @@ void gr_flip(void)
         if (double_buffering)
             gr_active_fb = (gr_active_fb + 1) & 1;
 
+#ifdef BOARD_HAS_FLIPPED_SCREEN
         /* flip buffer 180 degrees for devices with physicaly inverted screens */
         unsigned int i;
         unsigned int j;
@@ -304,6 +305,7 @@ void gr_flip(void)
 		    gr_mem_surface.data[(vi.xres_virtual * vi.yres * PIXEL_SIZE) - ((i+1) * PIXEL_SIZE) + j] = tmp;
 	    }
         }
+#endif
 
         /* copy data from the in-memory surface to the buffer we're about
          * to make active. */
