@@ -2,9 +2,12 @@
 
 # Set device serial number
 setprop ro.serialno $(cat /data/misc/sn)
+echo -n $(getprop ro.serialno) > /sys/class/android_usb/android0/iSerial
 
 # Fix audit permissions
-chown audit /data/misc/audit
+chmod 02750 /data/misc/audit
+chown audit.system /data/misc/audit
 
 # Fix I/O scheduler permissions
-chown system /sys/block/mtdblock*/queue/scheduler
+chmod 0664 /sys/block/mtdblock*/queue/scheduler
+chown system.system /sys/block/mtdblock*/queue/scheduler
