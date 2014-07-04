@@ -1,0 +1,232 @@
+From 044d0b4cfeb0ceeca5c366d765a5ea05193fa7ed Mon Sep 17 00:00:00 2001
+From: "J. Carlos Romero" <juancarlos.romero@gmail.com>
+Date: Thu, 3 Jul 2014 11:22:55 +0200
+Subject: [PATCH] Apply IO scheduler settings to all storage devices
+
+Change-Id: Ibd7d9e6d883a6fdbc331c51450ecd586fbf2c3a1
+---
+ .../android/settings/cyanogenmod/BootReceiver.java | 43 ++++++++++-
+ .../android/settings/cyanogenmod/IOScheduler.java  | 85 ++++++++++++++++++----
+ 2 files changed, 111 insertions(+), 17 deletions(-)
+
+diff --git a/src/com/android/settings/cyanogenmod/BootReceiver.java b/src/com/android/settings/cyanogenmod/BootReceiver.java
+index 85d9b5e..34f115f 100644
+--- a/src/com/android/settings/cyanogenmod/BootReceiver.java
++++ b/src/com/android/settings/cyanogenmod/BootReceiver.java
+@@ -1,5 +1,5 @@
+ /*
+- * Copyright (C) 2012 The CyanogenMod Project
++ * Copyright (C) 2012-2014 The CyanogenMod Project
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+@@ -138,8 +138,17 @@ public class BootReceiver extends BroadcastReceiver {
+             return;
+         }
+ 
++        String ioschedlist = IOScheduler.IOSCHED_LIST_FILE;
++        String mtdioschedlist = IOScheduler.IOSCHED_MTD_LIST_FILE;
++        String ioschedfile = "";
+         String ioscheduler = prefs.getString(IOScheduler.IOSCHED_PREF, null);
+-        String availableIOSchedulersLine = Utils.fileReadOneLine(IOScheduler.IOSCHED_LIST_FILE);
++        String availableIOSchedulersLine = null;
++        if (Utils.fileExists(ioschedlist)) {
++            availableIOSchedulersLine = Utils.fileReadOneLine(ioschedlist);
++        }
++        if (Utils.fileExists(mtdioschedlist)) {
++            availableIOSchedulersLine = Utils.fileReadOneLine(mtdioschedlist);
++        }
+         boolean noSettings = ((availableIOSchedulersLine == null) || (ioscheduler == null));
+         List<String> ioschedulers = null;
+ 
+@@ -150,7 +159,35 @@ public class BootReceiver extends BroadcastReceiver {
+                 ioschedulers = Arrays.asList(availableIOSchedulersLine.replace("[", "").replace("]", "").split(" "));
+             }
+             if (ioscheduler != null && ioschedulers != null && ioschedulers.contains(ioscheduler)) {
+-                Utils.fileWriteOneLine(IOScheduler.IOSCHED_LIST_FILE, ioscheduler);
++                if (Utils.fileExists(ioschedlist)) {
++                    Utils.fileWriteOneLine(ioschedlist, ioscheduler);
++                    final String file = ioschedlist;
++                    ioschedfile = file.replace("mmcblk0", "mmcblk1");
++                    if (Utils.fileExists(ioschedfile)) {
++                        if (Utils.fileIsWritable(ioschedfile)) {
++                            Utils.fileWriteOneLine(ioschedfile, ioscheduler);
++                        } else {
++                            Log.e(TAG, ioschedfile +
++                            " not writable, did you set ueventd rules?");
++                        }
++                    }
++                }
++
++                if (Utils.fileExists(mtdioschedlist) && Utils.fileIsWritable(mtdioschedlist)) {
++                    Utils.fileWriteOneLine(mtdioschedlist, ioscheduler);
++                    final String mtdfile = mtdioschedlist;
++                    for (int i = 1; i <= 10; i++) {
++                        ioschedfile = mtdfile.replace("mtdblock0", "mtdblock" + i);
++                        if (Utils.fileExists(ioschedfile)) {
++                            if (Utils.fileIsWritable(ioschedfile)) {
++                                Utils.fileWriteOneLine(ioschedfile, ioscheduler);
++                            } else {
++                                Log.e(TAG, ioschedfile +
++                                " not writable, did you set ueventd rules?");
++                            }
++                        }
++                    }
++                }
+             }
+             Log.d(TAG, "I/O scheduler settings restored.");
+         }
+diff --git a/src/com/android/settings/cyanogenmod/IOScheduler.java b/src/com/android/settings/cyanogenmod/IOScheduler.java
+index 68142c5..9944f98 100644
+--- a/src/com/android/settings/cyanogenmod/IOScheduler.java
++++ b/src/com/android/settings/cyanogenmod/IOScheduler.java
+@@ -1,5 +1,5 @@
+ /*
+- * Copyright (C) 2012 The CyanogenMod Project
++ * Copyright (C) 2012-2014 The CyanogenMod Project
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+@@ -22,6 +22,7 @@ import android.os.Message;
+ import android.preference.ListPreference;
+ import android.preference.Preference;
+ import android.preference.PreferenceScreen;
++import android.util.Log;
+ 
+ import com.android.settings.R;
+ import com.android.settings.SettingsPreferenceFragment;
+@@ -35,6 +36,7 @@ public class IOScheduler extends SettingsPreferenceFragment implements
+ 
+     public static final String IOSCHED_PREF = "pref_io_sched";
+     public static final String IOSCHED_LIST_FILE = "/sys/block/mmcblk0/queue/scheduler";
++    public static final String IOSCHED_MTD_LIST_FILE = "/sys/block/mtdblock0/queue/scheduler";
+ 
+     public static final String SOB_PREF = "pref_io_sched_set_on_boot";
+ 
+@@ -51,7 +53,7 @@ public class IOScheduler extends SettingsPreferenceFragment implements
+         mIOSchedulerFormat = getString(R.string.io_sched_summary);
+ 
+         String[] availableIOSchedulers = new String[0];
+-        String availableIOSchedulersLine;
++        String availableIOSchedulersLine = null;
+         int bropen, brclose;
+         String currentIOScheduler = null;
+ 
+@@ -63,8 +65,17 @@ public class IOScheduler extends SettingsPreferenceFragment implements
+ 
+         /* I/O scheduler
+         Some systems might not use I/O schedulers */
+-        if (!Utils.fileExists(IOSCHED_LIST_FILE) ||
+-            (availableIOSchedulersLine = Utils.fileReadOneLine(IOSCHED_LIST_FILE)) == null) {
++        if (Utils.fileExists(IOSCHED_LIST_FILE)) {
++            availableIOSchedulersLine = Utils.fileReadOneLine(IOSCHED_LIST_FILE);
++        }
++        if (availableIOSchedulersLine == null) {
++            if (Utils.fileExists(IOSCHED_MTD_LIST_FILE)) {
++                availableIOSchedulersLine = Utils.fileReadOneLine(IOSCHED_MTD_LIST_FILE);
++            }
++        }
++
++        if (!Utils.fileExists(IOSCHED_LIST_FILE) && !Utils.fileExists(IOSCHED_MTD_LIST_FILE) ||
++            availableIOSchedulersLine == null) {
+             prefScreen.removePreference(mIOSchedulerPref);
+ 
+         } else {
+@@ -85,14 +96,23 @@ public class IOScheduler extends SettingsPreferenceFragment implements
+ 
+     @Override
+     public void onResume() {
+-        String availableIOSchedulersLine;
++        String availableIOSchedulersLine = null;
+         int bropen, brclose;
+         String currentIOScheduler;
+ 
+         super.onResume();
+ 
+-        if (Utils.fileExists(IOSCHED_LIST_FILE) &&
+-            (availableIOSchedulersLine = Utils.fileReadOneLine(IOSCHED_LIST_FILE)) != null) {
++        if (Utils.fileExists(IOSCHED_LIST_FILE)) {
++            availableIOSchedulersLine = Utils.fileReadOneLine(IOSCHED_LIST_FILE);
++        }
++        if (availableIOSchedulersLine == null) {
++            if (Utils.fileExists(IOSCHED_MTD_LIST_FILE)) {
++                availableIOSchedulersLine = Utils.fileReadOneLine(IOSCHED_MTD_LIST_FILE);
++            }
++        }
++
++        if ((Utils.fileExists(IOSCHED_LIST_FILE) || Utils.fileExists(IOSCHED_LIST_FILE)) &&
++            availableIOSchedulersLine != null) {
+             bropen = availableIOSchedulersLine.indexOf("[");
+             brclose = availableIOSchedulersLine.lastIndexOf("]");
+             if (bropen >= 0 && brclose >= 0) {
+@@ -102,23 +122,60 @@ public class IOScheduler extends SettingsPreferenceFragment implements
+         }
+     }
+ 
+-    public boolean onPreferenceChange(Preference preference, Object newValue) {
++    public boolean onPreferenceChange(Preference preference, Object value) {
++        final String newValue = (String) value;
+         String fname = "";
++        String mtdfname = "";
++        String ioschedfile = "";
++        boolean changed = false;
+ 
+         if (newValue != null) {
+             if (preference == mIOSchedulerPref) {
+                 fname = IOSCHED_LIST_FILE;
++                mtdfname = IOSCHED_MTD_LIST_FILE;
++            }
++
++            if (Utils.fileExists(fname) && Utils.fileWriteOneLine(fname, newValue)) {
++                final String file = fname;
++                ioschedfile = file.replace("mmcblk0", "mmcblk1");
++                if (Utils.fileExists(ioschedfile)) {
++                    if (Utils.fileIsWritable(ioschedfile)) {
++                        Utils.fileWriteOneLine(ioschedfile, newValue);
++                    } else {
++                        Log.e(TAG, ioschedfile +
++                        " not writable, did you set ueventd rules?");
++                    }
++                }
++
++                if (preference == mIOSchedulerPref) {
++                    mIOSchedulerPref.setSummary(String.format(mIOSchedulerFormat, newValue));
++                }
++
++                changed = true;
+             }
+ 
+-            if (Utils.fileWriteOneLine(fname, (String) newValue)) {
++            if (Utils.fileExists(mtdfname) && Utils.fileIsWritable(mtdfname)) {
++                Utils.fileWriteOneLine(mtdfname, newValue);
++                final String mtdfile = mtdfname;
++                for (int i = 1; i <= 10; i++) {
++                    ioschedfile = mtdfile.replace("mtdblock0", "mtdblock" + i);
++                    if (Utils.fileExists(ioschedfile)) {
++                        if (Utils.fileIsWritable(ioschedfile)) {
++                            Utils.fileWriteOneLine(ioschedfile, newValue);
++                        } else {
++                            Log.e(TAG, ioschedfile +
++                                    " not writable, did you set ueventd rules?");
++                        }
++                    }
++                }
++
+                 if (preference == mIOSchedulerPref) {
+-                    mIOSchedulerPref.setSummary(String.format(mIOSchedulerFormat, (String) newValue));
++                    mIOSchedulerPref.setSummary(String.format(mIOSchedulerFormat, newValue));
+                 }
+-                return true;
+-            } else {
+-                return false;
++
++                changed = true;
+             }
+         }
+-        return false;
++        return changed;
+     }
+ }
+-- 
+2.0.0
+

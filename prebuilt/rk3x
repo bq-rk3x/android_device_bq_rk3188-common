@@ -9,5 +9,7 @@ chmod 02750 /data/misc/audit
 chown audit.system /data/misc/audit
 
 # Fix I/O scheduler permissions
+chmod 0664 /sys/block/mmcblk0/queue/scheduler
+chown system.system /sys/block/mmcblk0/queue/scheduler
 chmod 0664 /sys/block/mtdblock*/queue/scheduler
 chown system.system /sys/block/mtdblock*/queue/scheduler
