@@ -1,0 +1,48 @@
+From a33e6568b571f248e0a2b45c69079d70b20cb9a6 Mon Sep 17 00:00:00 2001
+From: Kra1o5 <kra1o5x@gmail.com>
+Date: Tue, 21 Oct 2014 20:00:19 +0200
+Subject: [PATCH] Revert "Camera: Check if codec supports HFR resolution/fps."
+
+This reverts commit 7c9c58454caf1b0b6ef2f00b7c12503f8b56b763.
+---
+ src/com/android/camera/VideoModule.java | 24 ------------------------
+ 1 file changed, 24 deletions(-)
+
+diff --git a/src/com/android/camera/VideoModule.java b/src/com/android/camera/VideoModule.java
+index a346d05..fb80b39 100644
+--- a/src/com/android/camera/VideoModule.java
++++ b/src/com/android/camera/VideoModule.java
+@@ -2069,30 +2069,6 @@ public class VideoModule implements CameraModule,
+                 Log.e(TAG, "supported hfr sizes is null");
+             }
+ 
+-            int hfrFps = Integer.parseInt(highFrameRate);
+-            int inputBitrate = videoWidth*videoHeight*hfrFps;
+-
+-            //check if codec supports the resolution, otherwise throw toast
+-            List<VideoEncoderCap> videoEncoders = EncoderCapabilities.getVideoEncoders();
+-            for (VideoEncoderCap videoEncoder: videoEncoders) {
+-                if (videoEncoder.mCodec == mVideoEncoder){
+-                    int maxBitrate = (videoEncoder.mMaxHFRFrameWidth *
+-                                     videoEncoder.mMaxHFRFrameHeight *
+-                                     videoEncoder.mMaxHFRMode);
+-                    if (inputBitrate > maxBitrate ){
+-                            Log.e(TAG,"Selected codec "+mVideoEncoder+
+-                                " does not support HFR " + highFrameRate + " with "+ videoWidth
+-                                + "x" + videoHeight +" resolution");
+-                            Log.e(TAG, "Codec capabilities: " +
+-                                "mMaxHFRFrameWidth = " + videoEncoder.mMaxHFRFrameWidth + " , "+
+-                                "mMaxHFRFrameHeight = " + videoEncoder.mMaxHFRFrameHeight + " , "+
+-                                "mMaxHFRMode = " + videoEncoder.mMaxHFRMode);
+-                            mUnsupportedHFRVideoSize = true;
+-                    }
+-                    break;
+-                }
+-            }
+-
+             if(mUnsupportedHFRVideoSize)
+                 Log.v(TAG,"Unsupported hfr resolution");
+ 
+-- 
+1.9.1
+
